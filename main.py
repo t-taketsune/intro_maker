@@ -10,14 +10,18 @@ def main(cfg):
     current_time = gen_cfg['starting_time']
     delta = gen_cfg['minute_delta']
     new_frames = []
+    fdelta = len(frs)//2
 
-    for fr in frs:
+    for i,fr in enumerate(frs):
         rot_h = rotate_image(hour, gen_cfg['hour_med'], angle_hour(current_time[0], current_time[1]))
         rot_m = rotate_image(minute, gen_cfg['minute_med'], angle_min(current_time[1]))
 
         merged = merge_alpha(clock, gen_cfg['clock_med'], rot_h, gen_cfg['hour_med'])
         merged = merge_alpha(merged, gen_cfg['clock_med'], rot_m, gen_cfg['minute_med'])
         merged[merged != 0] = 255
+
+        new_frame = merge_images(fr, frs[(i + fdelta) % len(frs)], merged, gen_cfg['clock_med'])
+        cv2.imwrite(os.path.join(cfg['output_dir'], f"{i}.png"), new_frame)
 
         if current_time[1] + delta > 60:
             add_hour = 1

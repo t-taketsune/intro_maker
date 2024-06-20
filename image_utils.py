@@ -47,3 +47,13 @@ def merge_alpha(i1, c1, i2, c2):
     tmp[nx0:i2.shape[0]+nx0,nx1:i2.shape[1]+nx1] = i2
     tmp[i1 != 0] = 1
     return tmp
+
+def merge_images(im1, im2, mask, mc):
+    mask_canvas = np.zeros(im1.shape[:2])
+    c0, c1 = (im1.shape[0]//2) - mc[1], (im1.shape[1]//2) - mc[0]
+    mask_canvas[c0:mask.shape[0] + c0, c1:mask.shape[1] + c1] = mask
+    for i in range(im1.shape[0]):
+        for j in range(im1.shape[1]):
+            if mask_canvas[i,j] > 0:
+                im1[i,j] = im2[i, j]
+    return im1
