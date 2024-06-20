@@ -8,7 +8,10 @@
     },
     "generation_config": {
         "starting_time": [0, 0],
-        "minute_delta": -25
+        "minute_delta": -25,
+        "clock_med": [1379, 1355],
+        "hour_med": [71, 670],
+        "minute_med": [64, 975]
     }
 
 }
