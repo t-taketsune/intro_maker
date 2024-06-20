@@ -7,9 +7,19 @@ def main(cfg):
     c, h, m, frs = load_assets(**cfg['loading_config'])
     gen_cfg = cfg['generation_config']
 
-    starting_hour = gen_cfg['starting_hour']
+    current_time = gen_cfg['starting_time']
+    delta = gen_cfg['minute_delta']
     for fr in frs:
-        pass
+        print(current_time)
+
+        if current_time[1] + delta > 60:
+            add_hour = 1
+        elif current_time[1] + delta < 0:
+            add_hour = -1
+        else:
+            add_hour = 0
+        current_time = [(current_time[0] + add_hour) % 12, 
+                        ((current_time[1] + delta) % 60)]
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog='Clock intro maker')

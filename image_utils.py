@@ -3,9 +3,9 @@ import cv2
 import os
 from glob import glob
 
-def angle_hour(hour):
-  h = hour % 12
-  angle = - h * 30
+def angle_hour(hour, minute):
+  t = (hour % 12) + (minute % 60) / 60
+  angle = - t * 30
   return angle
 
 def angle_min(minute):
