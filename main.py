@@ -4,8 +4,7 @@ import argparse
 from image_utils import *
 
 def main(cfg):
-    print(cfg)
-    pass
+    c, h, m, frs = load_assets(**cfg['loading_config'])
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog='Clock intro maker')

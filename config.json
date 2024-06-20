@@ -1,1 +1,10 @@
-{}
+{
+    "loading_config": {
+        "backdrops_dir": "backdrops",
+        "clock_fname": "clock.png",
+        "hour_fname": "hours.png",
+        "minute_fname": "minutes.png",
+        "frames_dir": "frames"
+    }
+
+}
