@@ -9,9 +9,9 @@
     "generation_config": {
         "starting_time": [0, 0],
         "minute_delta": -25,
-        "clock_med": [1379, 1355],
-        "hour_med": [670, 670],
-        "minute_med": [975, 975]
-    }
-
+        "clock_med": [1379, 1354],
+        "hour_med": [669, 670],
+        "minute_med": [974, 974]
+    },
+    "output_dir": "output"
 }

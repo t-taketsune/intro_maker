@@ -4,13 +4,20 @@ import argparse
 from image_utils import *
 
 def main(cfg):
-    c, h, m, frs = load_assets(**cfg['loading_config'])
+    clock, hour, minute, frs = load_assets(**cfg['loading_config'])
     gen_cfg = cfg['generation_config']
 
     current_time = gen_cfg['starting_time']
     delta = gen_cfg['minute_delta']
+    new_frames = []
+
     for fr in frs:
-        print(current_time)
+        rot_h = rotate_image(hour, gen_cfg['hour_med'], angle_hour(current_time[0], current_time[1]))
+        rot_m = rotate_image(minute, gen_cfg['minute_med'], angle_min(current_time[1]))
+
+        merged = merge_alpha(clock, gen_cfg['clock_med'], rot_h, gen_cfg['hour_med'])
+        merged = merge_alpha(merged, gen_cfg['clock_med'], rot_m, gen_cfg['minute_med'])
+        merged[merged != 0] = 255
 
         if current_time[1] + delta > 60:
             add_hour = 1

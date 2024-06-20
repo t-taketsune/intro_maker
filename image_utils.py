@@ -26,11 +26,24 @@ def load_assets(
     frames_dir='frames'
   ):
 
-  clock = cv2.imread(os.path.join(backdrops_dir, clock_fname), flags=cv2.IMREAD_UNCHANGED)
-  hour = cv2.imread(os.path.join(backdrops_dir, hour_fname), flags=cv2.IMREAD_UNCHANGED)
-  minute = cv2.imread(os.path.join(backdrops_dir, minute_fname), flags=cv2.IMREAD_UNCHANGED)
+  def gen_mask(fname):
+    im = cv2.imread(fname, flags=cv2.IMREAD_UNCHANGED)
+    mask = np.zeros(im.shape[:2])
+    mask[im[:,:,3] > 1] = 1
+    return mask
+
+  clock = gen_mask(os.path.join(backdrops_dir, clock_fname))
+  hour = gen_mask(os.path.join(backdrops_dir, hour_fname))
+  minute = gen_mask(os.path.join(backdrops_dir, minute_fname))
 
   frames_files = sorted(glob(os.path.join(frames_dir, "*")))
   frames = [cv2.imread(f, flags=cv2.IMREAD_UNCHANGED) for f in frames_files]
 
   return clock, hour, minute, frames
+
+def merge_alpha(i1, c1, i2, c2):
+  nx0, nx1 = c1[1] - c2[1], c1[0] - c2[0]
+  tmp = np.zeros(i1.shape)
+  tmp[nx0:i2.shape[0]+nx0,nx1:i2.shape[1]+nx1] = i2
+  tmp[i1 != 0] = 1
+  return tmp
