@@ -3,7 +3,17 @@ import cv2
 import os
 from glob import glob
 
-def rotate_image(image, angle, center):
+def angle_hour(hour):
+  h = hour % 12
+  angle = - h * 30
+  return angle
+
+def angle_min(minute):
+  m = minute % 60
+  angle = - m * 6
+  return angle
+
+def rotate_image(image, center, angle):
   rot_mat = cv2.getRotationMatrix2D(center, angle, 1.0)
   result = cv2.warpAffine(image, rot_mat, image.shape[1::-1], flags=cv2.INTER_LINEAR)
   return result

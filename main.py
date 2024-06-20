@@ -5,6 +5,11 @@ from image_utils import *
 
 def main(cfg):
     c, h, m, frs = load_assets(**cfg['loading_config'])
+    gen_cfg = cfg['generation_config']
+
+    starting_hour = gen_cfg['starting_hour']
+    for fr in frs:
+        pass
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog='Clock intro maker')

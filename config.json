@@ -5,6 +5,10 @@
         "hour_fname": "hours.png",
         "minute_fname": "minutes.png",
         "frames_dir": "frames"
+    },
+    "generation_config": {
+        "starting_hour": [0, 0],
+        "min_delta": -25
     }
 
 }
